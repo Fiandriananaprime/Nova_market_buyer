@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #dbeafe;
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-surface: #f8fafc;
+  --color-border: #e2e8f0;
+
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #ffffff;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Hide scrollbars until hover */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Horizontal scroll containers */
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+
+/* Smooth transitions */
+.transition-base {
+  transition: all 0.18s ease;
+}
+
+/* Product image zoom */
+.product-image-zoom {
+  overflow: hidden;
+}
+.product-image-zoom img {
+  transition: transform 0.35s ease;
+}
+.product-image-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Rating stars */
+.star-filled { color: #f59e0b; }
+.star-empty { color: #e2e8f0; }
+
+/* Skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: 4px;
+}
+
+/* Heart animation */
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.heart-pop { animation: heartPop 0.3s ease; }
+
+/* Cart badge bounce */
+@keyframes badgeBounce {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.3); }
+}
+.badge-bounce { animation: badgeBounce 0.3s ease; }
+
+/* Toast slide up */
+@keyframes toastIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.toast-in { animation: toastIn 0.25s ease; }
+
+/* Sticky header */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Line clamp utilities */
+.line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* Deal countdown pulse */
+@keyframes pulse-deal {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+.deal-pulse { animation: pulse-deal 2s infinite; }

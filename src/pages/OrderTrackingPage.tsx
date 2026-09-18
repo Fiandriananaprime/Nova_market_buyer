@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Page } from "../data";
 import { mockOrder, orderStatuses } from "../data";
 
@@ -26,6 +27,7 @@ const statusDates: Record<string, string> = {
 };
 
 export default function OrderTrackingPage({ onNavigate }: OrderTrackingPageProps) {
+  const [showMap, setShowMap] = useState(false);
   const currentIdx = orderStatuses.indexOf(mockOrder.status);
 
   return (
@@ -63,6 +65,31 @@ export default function OrderTrackingPage({ onNavigate }: OrderTrackingPageProps
               </div>
               <p className="text-slate-500 text-sm mb-1">Current location: {mockOrder.currentLocation}</p>
               <p className="text-green-600 font-600 text-sm">Estimated delivery: {mockOrder.estimatedDelivery}</p>
+              <button
+                type="button"
+                onClick={() => setShowMap((visible) => !visible)}
+                aria-expanded={showMap}
+                className="mt-4 w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-700 text-white transition-colors hover:bg-blue-700"
+              >
+                {showMap ? "Masquer la carte" : "Voir le suivi en direct"}
+              </button>
+
+              {showMap && (
+                <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+                  <div className="relative h-64 overflow-hidden bg-[#e8f0e9]" role="img" aria-label={`Carte du trajet, colis actuellement à ${mockOrder.currentLocation}`}>
+                    <div className="absolute inset-0 opacity-50" style={{ backgroundImage: "linear-gradient(32deg, transparent 47%, #c5d5cb 48%, #c5d5cb 50%, transparent 51%), linear-gradient(112deg, transparent 45%, #c5d5cb 46%, #c5d5cb 48%, transparent 49%), linear-gradient(#d4e2d7 1px, transparent 1px), linear-gradient(90deg, #d4e2d7 1px, transparent 1px)", backgroundSize: "170px 140px, 220px 180px, 42px 42px, 42px 42px" }} />
+                    <div className="absolute left-[18%] top-[67%] h-1 w-[62%] rotate-[-24deg] rounded-full bg-blue-600 shadow-sm" />
+                    <div className="absolute left-[16%] top-[62%] flex size-10 items-center justify-center rounded-full border-4 border-white bg-blue-600 text-xs font-800 text-white shadow-lg" aria-label="Point de départ">1</div>
+                    <div className="absolute right-[15%] top-[18%] flex size-10 items-center justify-center rounded-full border-4 border-white bg-orange-500 text-xs font-800 text-white shadow-lg" aria-label={`Position actuelle: ${mockOrder.currentLocation}`}>●</div>
+                    <div className="absolute left-3 top-3 rounded-lg bg-white/95 px-3 py-2 text-xs font-700 text-slate-800 shadow-sm">Position actuelle<br /><span className="font-500 text-slate-500">{mockOrder.currentLocation}</span></div>
+                    <div className="absolute bottom-3 right-3 rounded-lg bg-white/95 px-3 py-2 text-right text-xs font-700 text-slate-800 shadow-sm">Arrivée estimée<br /><span className="font-500 text-green-600">Demain, avant 18:00</span></div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 bg-white p-4 text-sm">
+                    <div><p className="text-xs text-slate-400">Temps restant</p><p className="font-700 text-slate-900">~ 1 jour</p></div>
+                    <div><p className="text-xs text-slate-400">Dernière mise à jour</p><p className="font-700 text-slate-900">Il y a 18 min</p></div>
+                  </div>
+                </div>
+              )}
 
               {/* Progress bar */}
               <div className="mt-6 relative">
